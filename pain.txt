@@ -1,8 +1,6 @@
 cod
 giff as;ldkjflsf
-<<<<<<< HEAD
 java draw
 java color
 bbbb
-=======
->>>>>>> parent of 52a5650... draw
+draw
