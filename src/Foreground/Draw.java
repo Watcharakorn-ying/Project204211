@@ -4,10 +4,13 @@ package Foreground;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,18 +19,42 @@ import javax.swing.JPanel;
  * @author HawksSalatan
  */
 class DrawWin extends JFrame {
+    Draw drawPanel;
+    private JButton clearBtn;
+    private JButton btnRecognize;
+    
+    ActionListener actionListener = new ActionListener() {        
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == clearBtn)
+                drawPanel.clear();
+            if (e.getSource() == btnRecognize)
+                ;
+        }
+    };    
+    
     public DrawWin() {
         setTitle("Test");
-        setSize(new Dimension(300, 430));
+        setSize(new Dimension(800, 430));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setLayout(null);
+        setLayout(null);        
         
-        Draw drawPanel;
         drawPanel = new Draw();
         
+        clearBtn = new JButton("Clear");
+        clearBtn.setBounds(30, 340, 70, 50);
+        clearBtn.setFocusPainted(false);
+        btnRecognize = new JButton("Recognize");
+        btnRecognize.setBounds(110, 340, 100, 50);
+        btnRecognize.setFocusPainted(false);
+        
+        clearBtn.addActionListener(actionListener);
+        btnRecognize.addActionListener(actionListener);
+        
         getContentPane().add(drawPanel);
+        getContentPane().add(clearBtn);
+        getContentPane().add(btnRecognize);
         setVisible(true);
     }
 }
@@ -49,6 +76,13 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
 	data = new boolean[280][280];
 	addMouseListener(this);
 	addMouseMotionListener(this);
+    }
+    
+    public void clear() {
+        data = new boolean[280][280];
+	getGraphics().clearRect(0, 0, 280, 280);
+	setBackground(Color.WHITE);
+	setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
     
     public void mousePressed(MouseEvent e) {
