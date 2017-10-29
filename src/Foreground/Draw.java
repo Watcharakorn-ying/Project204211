@@ -13,6 +13,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -22,6 +25,9 @@ class DrawWin extends JFrame {
     Draw drawPanel;
     private JButton clearBtn;
     private JButton btnRecognize;
+    private JComboBox selectnumber;
+    private JLabel textnumber;
+    private JToggleButton training;
     
     ActionListener actionListener = new ActionListener() {        
         public void actionPerformed(ActionEvent e) {
@@ -29,12 +35,21 @@ class DrawWin extends JFrame {
                 drawPanel.clear();
             if (e.getSource() == btnRecognize)
                 ;
+            if (training.isSelected()) { 
+                training.setText("Training");
+                btnRecognize.setText("Recognize");
+            } 
+            else { 
+                training.setText("Guess");
+                btnRecognize.setText("Check number");
+            } 
         }
+
     };    
     
     public DrawWin() {
         setTitle("Test");
-        setSize(new Dimension(800, 430));
+        setSize(new Dimension(600, 410));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -42,19 +57,37 @@ class DrawWin extends JFrame {
         
         drawPanel = new Draw();
         
-        clearBtn = new JButton("Clear");
-        clearBtn.setBounds(30, 340, 70, 50);
-        clearBtn.setFocusPainted(false);
-        btnRecognize = new JButton("Recognize");
-        btnRecognize.setBounds(110, 340, 100, 50);
+        selectnumber = new JComboBox();
+        selectnumber.setBounds(390,300,60,30);
+        selectnumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+
+        textnumber = new JLabel();
+        textnumber.setBounds(320, 290, 70, 50);
+        textnumber.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        textnumber.setText("Number");
+        
+        training = new JToggleButton("Training");
+        training.setText("Guess");
+        training.setBounds(10,300,280, 30);
+        training.setFocusPainted(false);
+        
+        btnRecognize = new JButton("Check number");
+        btnRecognize.setBounds(10, 340, 135, 30);
         btnRecognize.setFocusPainted(false);
+        clearBtn = new JButton("Clear");
+        clearBtn.setBounds(155, 340, 135, 30);
+        clearBtn.setFocusPainted(false);
         
         clearBtn.addActionListener(actionListener);
         btnRecognize.addActionListener(actionListener);
+        training.addActionListener(actionListener);
         
         getContentPane().add(drawPanel);
         getContentPane().add(clearBtn);
         getContentPane().add(btnRecognize);
+        getContentPane().add(selectnumber);
+        getContentPane().add(textnumber);
+        getContentPane().add(training);
         setVisible(true);
     }
 }
