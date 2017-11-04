@@ -22,49 +22,94 @@ import javax.swing.JToggleButton;
  * @author HawksSalatan
  */
 class DrawWin extends JFrame {
-    Draw drawPanel;
+    public static Draw drawPanel;
+    ImagePanel image;
+    
+    static Recognition r = new Recognition();
     private JButton clearBtn;
     private JButton btnRecognize;
-    private JComboBox selectnumber;
-    private JLabel textnumber;
+    private JComboBox selectNumber;
+    private JLabel textNumber;
     private JToggleButton training;
     
     ActionListener actionListener = new ActionListener() {        
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn)
                 drawPanel.clear();
-            if (e.getSource() == btnRecognize)
-                ;
-            if (training.isSelected()) { 
-                training.setText("Training");
-                btnRecognize.setText("Recognize");
-            } 
-            else { 
-                training.setText("Guess");
-                btnRecognize.setText("Check number");
-            } 
+            if (e.getSource() == btnRecognize){
+                if (btnRecognize.getText().equals("Recognize")){
+                    dispose();
+                    r.loadImage();
+                    r.setVisible(true);
+                }
+                else if (btnRecognize.getText().equals("Check number")){
+                    
+                    //drawPanel.setVisible(false);
+                    
+                    //i.setVisible(false);
+                    r.loadImage();
+                    image.paint();
+                    //getContentPane().remove(i);                                      
+                    //i.repaint();
+                    //repaint();
+                    //getContentPane().add(i);
+                    
+                }
+            }
+            if (e.getSource() == training){
+                if (training.isSelected()) { 
+                    training.setText("Training");
+                    btnRecognize.setText("Recognize");
+                    textNumber.setText("Number");
+                    selectNumber.setVisible(true);                
+                } 
+                else { 
+                    training.setText("Guess");
+                    btnRecognize.setText("Check number");
+                    selectNumber.setVisible(false);
+                    textNumber.setText("Number is");
+                }
+            }
+            //System.out.println(selectnumber.getSelectedItem());
         }
 
     };    
     
     public DrawWin() {
         setTitle("Test");
-        setSize(new Dimension(600, 410));
+        setSize(new Dimension(1000, 410));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setLayout(null);        
+        setLayout(null);
         
         drawPanel = new Draw();
+        image = new ImagePanel(300, 0);
+        r.loadImage();
         
-        selectnumber = new JComboBox();
-        selectnumber.setBounds(390,300,60,30);
-        selectnumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+        selectNumber = new JComboBox();
+        selectNumber.setBounds(390,300,60,30);
+        selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+        selectNumber.setVisible(false);
 
-        textnumber = new JLabel();
-        textnumber.setBounds(320, 290, 70, 50);
-        textnumber.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textnumber.setText("Number");
+        textNumber = new JLabel();
+        textNumber.setBounds(320, 290, 80, 50);
+        textNumber.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        textNumber.setText("Number is");
+        
+        training = new JToggleButton("Training");
+        training.setText("Guess");
+        training.setBounds(10,300,280, 30);
+        training.setFocusPainted(false);
+        
+        selectNumber = new JComboBox();
+        selectNumber.setBounds(390,300,60,30);
+        selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+
+        textNumber = new JLabel();
+        textNumber.setBounds(320, 290, 70, 50);
+        textNumber.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        textNumber.setText("Number");
         
         training = new JToggleButton("Training");
         training.setText("Guess");
@@ -81,13 +126,15 @@ class DrawWin extends JFrame {
         clearBtn.addActionListener(actionListener);
         btnRecognize.addActionListener(actionListener);
         training.addActionListener(actionListener);
+        selectNumber.addActionListener(actionListener);
         
         getContentPane().add(drawPanel);
         getContentPane().add(clearBtn);
         getContentPane().add(btnRecognize);
-        getContentPane().add(selectnumber);
-        getContentPane().add(textnumber);
+        getContentPane().add(selectNumber);
+        getContentPane().add(textNumber);
         getContentPane().add(training);
+        getContentPane().add(image);
         setVisible(true);
     }
 }
@@ -116,6 +163,10 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
 	getGraphics().clearRect(0, 0, 280, 280);
 	setBackground(Color.WHITE);
 	setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    }
+    
+    public boolean[][] getData(){
+        return data;
     }
     
     public void mousePressed(MouseEvent e) {
