@@ -22,8 +22,7 @@ import javax.swing.JToggleButton;
  * @author HawksSalatan
  */
 class DrawWin extends JFrame {
-    public static Draw drawPanel;
-    ImagePanel image;
+    static Draw drawPanel;
     
     static Recognition r = new Recognition();
     private JButton clearBtn;
@@ -39,6 +38,7 @@ class DrawWin extends JFrame {
             if (e.getSource() == btnRecognize){
                 if (btnRecognize.getText().equals("Recognize")){
                     dispose();
+                    //System.out.println(selectNumber.getSelectedIndex());
                     r.loadImage();
                     r.setVisible(true);
                 }
@@ -47,8 +47,8 @@ class DrawWin extends JFrame {
                     //drawPanel.setVisible(false);
                     
                     //i.setVisible(false);
-                    r.loadImage();
-                    image.paint();
+                    //r.loadImage();
+                    //image.paint();
                     //getContentPane().remove(i);                                      
                     //i.repaint();
                     //repaint();
@@ -84,8 +84,6 @@ class DrawWin extends JFrame {
         setLayout(null);
         
         drawPanel = new Draw();
-        image = new ImagePanel(300, 0);
-        r.loadImage();
         
         selectNumber = new JComboBox();
         selectNumber.setBounds(390,300,60,30);
@@ -120,7 +118,8 @@ class DrawWin extends JFrame {
         getContentPane().add(selectNumber);
         getContentPane().add(textNumber);
         getContentPane().add(training);
-        getContentPane().add(image);
+        //getContentPane().add(Draw.repeat);
+        //getContentPane().add(Draw.crop);
         setVisible(true);
     }
 }
@@ -130,6 +129,9 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
     private boolean painting;
     private int px, py;
     private boolean[][] data;
+    //static RepeatDraw repeat = new RepeatDraw();
+    //static CropDraw crop = new CropDraw();
+    
     
     public Draw() {
 	setPreferredSize(new Dimension(280, 280));
@@ -170,6 +172,8 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
 		p = false;
 	} else if (painting) {
 		graphics.drawLine(px,py,x,y);
+                //repeat.repeat(px, py, x, y);
+                //crop.crop();
                 System.out.println("T F " + px + " " + py + " " + x + " " + y);
 	}        
 	px = x;
