@@ -15,37 +15,43 @@ import javax.swing.JLabel;
  * @author HawksSalatan
  */
 public class Recognition extends JFrame {
+    private ImagePanel imagePanel = new ImagePanel();
+    private TrainPanel TrainPanel = new TrainPanel();
     
     private JButton btnReset;
     private JLabel lblDigit;
     private BufferedImage image;
     private int[] rectCoords;
     private boolean[][] bits;
-    private ImagePanel imagePanel = new ImagePanel();
+    
     
     ActionListener actionListener = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == btnReset)
+            if (e.getSource() == btnReset){
                 dispose();
-                //DrawWin d = new DrawWin();
+                DrawWin d = new DrawWin();
+            }
         }
     };
     
     public Recognition(){
         setTitle("Test Recognition");
-        setSize(710, 480);
+        setSize(710, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 	setResizable(false);
 	setLayout(null);
         
         btnReset = new JButton("Reset");
-	btnReset.setBounds(565, 400, 100, 25);
-	btnReset.setFocusPainted(false);        
+	btnReset.setBounds(565, 500, 100, 25);
+	btnReset.setFocusPainted(false);
+        
         
         btnReset.addActionListener(actionListener);
         
         getContentPane().add(btnReset);
+        getContentPane().add(imagePanel);
+        getContentPane().add(TrainPanel);
     }
     
     public void loadImage() {
