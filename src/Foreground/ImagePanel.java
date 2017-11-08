@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 public class ImagePanel extends JPanel {
     public ImagePanel(){
         setPreferredSize(new Dimension(710, 430));
-	setBounds(0, 0, 710, 430);
+	setBounds(0, 0, 710, 350);
     }
     /*public ImagePanel(int x, int y) {
 	setPreferredSize(new Dimension(710, 430));
