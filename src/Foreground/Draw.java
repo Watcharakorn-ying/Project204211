@@ -49,14 +49,14 @@ class DrawWin extends JFrame {
                 if (training.isSelected()) { 
                     btnChecknumber.setVisible(false);
                     btnRecognize.setVisible(true);
-                    training.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\Training.png"));
+                    training.setIcon(new ImageIcon("gui/button/Training.png"));
                     textNumber.setText("Number");
                     selectNumber.setVisible(true);                
                 } 
                 else {
                     btnRecognize.setVisible(false);
                     btnChecknumber.setVisible(true);
-                    training.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\Guess.png"));
+                    training.setIcon(new ImageIcon("gui/button/Guess.png"));
                     selectNumber.setVisible(false);
                     textNumber.setText("Number is");
                 }
@@ -95,56 +95,51 @@ class DrawWin extends JFrame {
         selectNumber.setBounds(390,300,60,30);
         selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
         selectNumber.setVisible(false);
-
-        textNumber = new JLabel();
-        textNumber.setBounds(320, 290, 70, 50);
-        textNumber.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textNumber.setText("Number is");
         
         training = new JToggleButton();
-        training.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\Guess.png"));
+        training.setIcon(new ImageIcon("gui/button/Guess.png"));
         training.setBounds(10,300,280, 30);
         training.setFocusPainted(false);
         
         btnChecknumber = new JButton();
-        btnChecknumber.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\checknumber.png"));
+        btnChecknumber.setIcon(new ImageIcon("gui/button/checknumber.png"));
         btnChecknumber.setHorizontalTextPosition(AbstractButton.CENTER);
         btnChecknumber.setBounds(10, 340, 135, 30);
         btnChecknumber.setFocusPainted(false);
         btnChecknumber.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnChecknumber.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\clickchecknumber.png"));
+                btnChecknumber.setIcon(new ImageIcon("gui/button/clickchecknumber.png"));
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnChecknumber.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\checknumber.png"));
+                btnChecknumber.setIcon(new ImageIcon("gui/button/checknumber.png"));
             }
         });
         
         btnRecognize = new JButton();
-        btnRecognize.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\recognize.png"));
+        btnRecognize.setIcon(new ImageIcon("gui/button/recognize.png"));
         btnRecognize.setHorizontalTextPosition(AbstractButton.CENTER);
         btnRecognize.setBounds(10, 340, 135, 30);
         btnRecognize.setFocusPainted(false);
         btnRecognize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnRecognize.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\clickrecognize.png"));
+                btnRecognize.setIcon(new ImageIcon("gui/button/clickrecognize.png"));
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnRecognize.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\recognize.png"));
+                btnRecognize.setIcon(new ImageIcon("gui/button/recognize.png"));
             }
         });
         
         clearBtn = new JButton();
-        clearBtn.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\testbut.png"));
+        clearBtn.setIcon(new ImageIcon("gui/button/testbut.png"));
         clearBtn.setBounds(155, 340, 135, 30);
         clearBtn.setHorizontalTextPosition(AbstractButton.CENTER);
         clearBtn.setFocusPainted(false);
         clearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                clearBtn.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\clicktestbut.png"));
+                clearBtn.setIcon(new ImageIcon("gui/button/clicktestbut.png"));
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                clearBtn.setIcon(new ImageIcon("D:\\project\\Project204211\\gui\\button\\testbut.png"));
+                clearBtn.setIcon(new ImageIcon("gui/button/testbut.png"));
             }
         });        
         
