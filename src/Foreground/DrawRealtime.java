@@ -22,10 +22,11 @@ public class DrawRealtime extends JPanel {
         if (rCoords != null) {
             g.setColor(Color.WHITE);
             g.drawRect(oldr1, oldr2,oldr3, oldr4);
+            g.setColor(Color.BLACK);
+            g.drawLine(px,py,x,y);
             g.setColor(Color.RED);
             g.drawRect(rCoords[0] - 1, rCoords[1] - 1,
             rCoords[2] - rCoords[0] + 2, rCoords[3] - rCoords[1] + 2);
- 
             oldr1 = rCoords[0] - 1; oldr2 =  rCoords[1] - 1;oldr3 = rCoords[2] - rCoords[0] + 2;oldr4=rCoords[3] - rCoords[1] + 2;
         }
     }

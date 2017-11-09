@@ -29,7 +29,7 @@ public class Recognition extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == btnReset){
                 dispose();
-                DrawWin s = new DrawWin();
+                DrawWin d = new DrawWin();
             }
         }
     };

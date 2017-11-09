@@ -128,7 +128,7 @@ class DrawWin extends JFrame {
 public class Draw extends JPanel implements MouseMotionListener, MouseListener {
     private boolean p;
     private boolean painting;
-    private int px, py;
+    private int px, py,oldpx, oldpy;
     private boolean[][] data;
     //static RepeatDraw repeat = new RepeatDraw();
     static DrawRealtime drawRealtime;
@@ -170,15 +170,16 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
 	Graphics graphics = getGraphics();
 	graphics.setColor(Color.BLACK);
 	if (painting && p) {
-		graphics.drawLine(x, y, x, y);
-                System.out.println("T T " + x + " " + y);
-		p = false;
+            graphics.drawLine(x, y, x, y);
+            System.out.println("T T " + x + " " + y);
+            p = false;
 	} else if (painting) {
-		graphics.drawLine(px,py,x,y);  
-                DrawWin.r.loadImage();
-                drawRealtime.paint(px, py, x, y);
-                System.out.println("T F " + px + " " + py + " " + x + " " + y);
-	}        
+//            graphics.drawLine(px,py,x,y);  
+            DrawWin.r.loadImage();
+            drawRealtime.paint(px, py, x, y);
+            graphics.drawLine(px,py,x,y);  
+            System.out.println("T F " + px + " " + py + " " + x + " " + y);
+	}  
 	px = x;
 	py = y;
 	if (painting) data[x][y] = true;
