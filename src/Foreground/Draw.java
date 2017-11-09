@@ -84,6 +84,7 @@ class DrawWin extends JFrame {
         setLayout(null);
         
         drawPanel = new Draw();
+        drawPanel.drawRealtime = new DrawRealtime();
         
         selectNumber = new JComboBox();
         selectNumber.setBounds(390,300,60,30);
@@ -119,7 +120,7 @@ class DrawWin extends JFrame {
         getContentPane().add(textNumber);
         getContentPane().add(training);
         //getContentPane().add(Draw.repeat);
-        //getContentPane().add(Draw.crop);
+        getContentPane().add(drawPanel.drawRealtime);
         setVisible(true);
     }
 }
@@ -130,7 +131,7 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
     private int px, py;
     private boolean[][] data;
     //static RepeatDraw repeat = new RepeatDraw();
-    //static CropDraw crop = new CropDraw();
+    static DrawRealtime drawRealtime;
     
     
     public Draw() {
@@ -144,6 +145,7 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
 	data = new boolean[280][280];
 	addMouseListener(this);
 	addMouseMotionListener(this);
+        //drawRealtime = new DrawRealtime();
     }
     
     public void clear() {
@@ -151,6 +153,7 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
 	getGraphics().clearRect(0, 0, 280, 280);
 	setBackground(Color.WHITE);
 	setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        drawRealtime.clear();
     }
     
     public boolean[][] getData(){
@@ -171,9 +174,9 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
                 System.out.println("T T " + x + " " + y);
 		p = false;
 	} else if (painting) {
-		graphics.drawLine(px,py,x,y);
-                //repeat.repeat(px, py, x, y);
-                //crop.crop();
+		graphics.drawLine(px,py,x,y);              
+                DrawWin.r.loadImage();
+                drawRealtime.paint(px, py, x, y);
                 System.out.println("T F " + px + " " + py + " " + x + " " + y);
 	}        
 	px = x;
