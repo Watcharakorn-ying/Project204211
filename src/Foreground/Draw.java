@@ -174,7 +174,7 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
                 System.out.println("T T " + x + " " + y);
 		p = false;
 	} else if (painting) {
-		graphics.drawLine(px,py,x,y);              
+		graphics.drawLine(px,py,x,y);  
                 DrawWin.r.loadImage();
                 drawRealtime.paint(px, py, x, y);
                 System.out.println("T F " + px + " " + py + " " + x + " " + y);
