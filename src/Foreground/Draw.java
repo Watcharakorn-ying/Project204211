@@ -3,12 +3,14 @@ package Foreground;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.FileNotFoundException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,8 +29,9 @@ class DrawWin extends JFrame {
     static Recognition r = new Recognition();
     private JButton clearBtn;
     private JButton btnRecognize;
-    private JComboBox selectNumber;
+    static JComboBox selectNumber;
     private JLabel textNumber;
+    private JLabel outputNumber;
     private JToggleButton training;
     
     ActionListener actionListener = new ActionListener() {        
@@ -44,15 +47,20 @@ class DrawWin extends JFrame {
                 }
                 else if (btnRecognize.getText().equals("Check number")){
                     
-                    //drawPanel.setVisible(false);
-                    
-                    //i.setVisible(false);
-                    //r.loadImage();
-                    //image.paint();
-                    //getContentPane().remove(i);                                      
-                    //i.repaint();
-                    //repaint();
-                    //getContentPane().add(i);
+                    try {
+                        //drawPanel.setVisible(false);
+                        
+                        //i.setVisible(false);
+                        r.loadImage();
+                        //image.paint();
+                        //getContentPane().remove(i);
+                        //i.repaint();
+                        //repaint();
+                        //getContentPane().add(i);
+                        outputNumber.setText(r.recognize());
+                    } catch (FileNotFoundException ex) {
+                        System.out.println("Not found file");
+                    }
                     
                 }
             }
@@ -70,42 +78,47 @@ class DrawWin extends JFrame {
                     textNumber.setText("Number is");
                 }
             }
-            //System.out.println(selectnumber.getSelectedItem());
+//            System.out.println(selectNumber.getSelectedIndex());
         }
 
     };    
     
     public DrawWin() {
         setTitle("Test");
-        setSize(new Dimension(1000, 410));
+        setSize(new Dimension(600, 410));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLayout(null);
         
         drawPanel = new Draw();
+        drawPanel.drawRealtime = new DrawRealtime();
         
         selectNumber = new JComboBox();
-        selectNumber.setBounds(390,300,60,30);
-        selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
-        selectNumber.setVisible(false);
+            selectNumber.setBounds(390,300,60,30);
+            selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+            selectNumber.setVisible(false);
 
         textNumber = new JLabel();
-        textNumber.setBounds(320, 290, 80, 50);
-        textNumber.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        textNumber.setText("Number is");
+            textNumber.setBounds(320, 290, 80, 50);
+            textNumber.setFont(new java.awt.Font("Tahoma", 0, 18));
+            textNumber.setText("Number is");
+        outputNumber = new JLabel();
+            outputNumber.setBounds(430, 280, 80, 100);
+            outputNumber.setFont(new java.awt.Font("Verdana", Font.PLAIN, 70));
+            outputNumber.setText("");
         
         training = new JToggleButton("Training");
-        training.setText("Guess");
-        training.setBounds(10,300,280, 30);
-        training.setFocusPainted(false);
+            training.setText("Guess");
+            training.setBounds(10,300,280, 30);
+            training.setFocusPainted(false);
         
         btnRecognize = new JButton("Check number");
-        btnRecognize.setBounds(10, 340, 135, 30);
-        btnRecognize.setFocusPainted(false);
+            btnRecognize.setBounds(10, 340, 135, 30);
+            btnRecognize.setFocusPainted(false);
         clearBtn = new JButton("Clear");
-        clearBtn.setBounds(155, 340, 135, 30);
-        clearBtn.setFocusPainted(false);
+            clearBtn.setBounds(155, 340, 135, 30);
+            clearBtn.setFocusPainted(false);
         
         clearBtn.addActionListener(actionListener);
         btnRecognize.addActionListener(actionListener);
@@ -117,10 +130,15 @@ class DrawWin extends JFrame {
         getContentPane().add(btnRecognize);
         getContentPane().add(selectNumber);
         getContentPane().add(textNumber);
+        getContentPane().add(outputNumber);
         getContentPane().add(training);
-        //getContentPane().add(Draw.repeat);
-        //getContentPane().add(Draw.crop);
+        getContentPane().add(drawPanel.drawRealtime);
         setVisible(true);
+    }
+    
+    public static int getSelectNumber(){
+        //System.out.println(selectNumber.getSelectedItem());
+        return selectNumber.getSelectedIndex();
     }
 }
 
@@ -129,8 +147,7 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
     private boolean painting;
     private int px, py;
     private boolean[][] data;
-    //static RepeatDraw repeat = new RepeatDraw();
-    //static CropDraw crop = new CropDraw();
+    static DrawRealtime drawRealtime;
     
     
     public Draw() {
@@ -151,6 +168,7 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
 	getGraphics().clearRect(0, 0, 280, 280);
 	setBackground(Color.WHITE);
 	setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        drawRealtime.clear();
     }
     
     public boolean[][] getData(){
@@ -167,14 +185,14 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
 	Graphics graphics = getGraphics();
 	graphics.setColor(Color.BLACK);
 	if (painting && p) {
-		graphics.drawLine(x, y, x, y);
-                System.out.println("T T " + x + " " + y);
-		p = false;
+            graphics.drawLine(x, y, x, y);
+            System.out.println("T T " + x + " " + y);
+            p = false;
 	} else if (painting) {
-		graphics.drawLine(px,py,x,y);
-                //repeat.repeat(px, py, x, y);
-                //crop.crop();
-                System.out.println("T F " + px + " " + py + " " + x + " " + y);
+            DrawWin.r.loadImage();
+            graphics.drawLine(px,py,x,y);
+            drawRealtime.paint(px, py, x, y);
+            System.out.println("T F " + px + " " + py + " " + x + " " + y);
 	}        
 	px = x;
 	py = y;
