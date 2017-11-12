@@ -3,6 +3,7 @@ package Foreground;
 
 import Background.*;
 
+import java.io.FileNotFoundException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -23,7 +24,7 @@ public class Recognition extends JFrame {
     private BufferedImage image;
     private int[] rectCoords;
     private boolean[][] bits;
-    
+    private NeuralNetwork nn;
     
     ActionListener actionListener = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -49,6 +50,7 @@ public class Recognition extends JFrame {
         
         btnReset.addActionListener(actionListener);
         
+        addWindowListener(TrainPanel);
         getContentPane().add(btnReset);
         getContentPane().add(imagePanel);
         getContentPane().add(TrainPanel);
@@ -59,14 +61,19 @@ public class Recognition extends JFrame {
 	image = Image.getImage(data);
 	rectCoords = Image.getRectangle(data);
 	bits = Image.getBits(rectCoords, data);
+        System.out.println("pass bits");
     }
     
-    public void recognize(){
-        boolean[][] booleanBits = bits;
+    public String recognize() throws FileNotFoundException{
+        nn = new NeuralNetwork("data/nn_weights.txt", 0.3, 100, 25, 10);
+        boolean[][] booleanBits = DrawWin.r.bits;
 	int[] intBits = new int[100];
 	for (int i = 0; i < 10; i++)
             for (int j = 0; j < 10; j++)
-		intBits[10*j + i] = (booleanBits[i][j])? 1 : 0;	
+		intBits[10*j + i] = (booleanBits[i][j])? 1 : 0;
+        int result = nn.resultIndex(intBits);
+        System.out.println(result);
+        return Integer.toString(result);
     }
     
     public int[] getRectangleCoords() {
