@@ -29,6 +29,7 @@ class DrawWin extends JFrame {
     private JButton btnRecognize;
     private JComboBox selectNumber;
     private JLabel textNumber;
+    private JLabel output;
     private JToggleButton training;
     
     ActionListener actionListener = new ActionListener() {        
@@ -45,7 +46,7 @@ class DrawWin extends JFrame {
                 else if (btnRecognize.getText().equals("Check number")){
                     
                     //drawPanel.setVisible(false);
-                    
+                    output.setText("Output"); //put output here
                     //i.setVisible(false);
                     //r.loadImage();
                     //image.paint();
@@ -96,6 +97,11 @@ class DrawWin extends JFrame {
         textNumber.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         textNumber.setText("Number is");
         
+        output = new JLabel();
+        output.setBounds(410, 290, 80, 50);
+        output.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        output.setText("");
+        
         training = new JToggleButton("Training");
         training.setText("Guess");
         training.setBounds(10,300,280, 30);
@@ -118,6 +124,7 @@ class DrawWin extends JFrame {
         getContentPane().add(btnRecognize);
         getContentPane().add(selectNumber);
         getContentPane().add(textNumber);
+        getContentPane().add(output);
         getContentPane().add(training);
         //getContentPane().add(Draw.repeat);
         getContentPane().add(drawPanel.drawRealtime);
