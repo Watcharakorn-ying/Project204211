@@ -79,7 +79,7 @@ class DrawWin extends JFrame {
 
         background = new JLabel();
         background.setSize(600,410);
-        background.setIcon(new ImageIcon("gui/bg.png"));
+        background.setIcon(new ImageIcon("gui/BG/bg.png"));
         background.setVisible(true);
         
         selectNumber = new JComboBox();
