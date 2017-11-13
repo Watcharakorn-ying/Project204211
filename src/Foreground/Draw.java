@@ -33,6 +33,7 @@ class DrawWin extends JFrame {
     private JComboBox selectNumber;
     private JLabel textNumber;
     private JToggleButton training;
+    private JLabel background;
     
     ActionListener actionListener = new ActionListener() {        
         public void actionPerformed(ActionEvent e) {
@@ -65,7 +66,7 @@ class DrawWin extends JFrame {
         }
         
     };    
-    
+
     public DrawWin() {
         setTitle("Test");
         setSize(new Dimension(1000, 410));
@@ -75,6 +76,11 @@ class DrawWin extends JFrame {
         setLayout(null);
         
         drawPanel = new Draw();
+
+        background = new JLabel();
+        background.setSize(600,410);
+        background.setIcon(new ImageIcon("gui/bg.png"));
+        background.setVisible(true);
         
         selectNumber = new JComboBox();
         selectNumber.setBounds(390,300,60,30);
@@ -156,6 +162,7 @@ class DrawWin extends JFrame {
         getContentPane().add(selectNumber);
         getContentPane().add(textNumber);
         getContentPane().add(training);
+        getContentPane().add(background);
         //getContentPane().add(Draw.repeat);
         //getContentPane().add(Draw.crop);
         setVisible(true);
@@ -233,5 +240,6 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
     
     public static void main(String [] args){
         DrawWin d = new DrawWin();
+        
     }
 }
