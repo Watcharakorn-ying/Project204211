@@ -20,15 +20,12 @@ import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 import javax.swing.ImageIcon;
 import javax.swing.AbstractButton;
-import java.io.FileInputStream;
-import java.io.IOException;
-import javax.swing.*;
-import sun.audio.*;
 
 /**
  *
  * @author HawksSalatan
  */
+
 class DrawWin extends JFrame {
     static Draw drawPanel;
     
@@ -42,12 +39,37 @@ class DrawWin extends JFrame {
     private JToggleButton training;
     private JToggleButton bgm;
     private JLabel background;
-    
+    private JLabel Numis;
+
     ActionListener actionListener = new ActionListener() {        
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn)
                 drawPanel.clear();
+            
+            if (e.getSource() == btnChecknumber){
+                Numis.setVisible(true);
+                if (r.recognize()=="0")
+                    Numis.setIcon(new ImageIcon("gui/number/0.png"));
+                else if (r.recognize()=="1")
+                    Numis.setIcon(new ImageIcon("gui/number/1.png"));
+                else if (r.recognize()=="2")
+                    Numis.setIcon(new ImageIcon("gui/number/2.png"));
+                else if (r.recognize()=="3")
+                    Numis.setIcon(new ImageIcon("gui/number/3.png"));
+                else if (r.recognize()=="4")
+                    Numis.setIcon(new ImageIcon("gui/number/4.png"));
+                else if (r.recognize()=="5")
+                    Numis.setIcon(new ImageIcon("gui/number/5.png"));
+                else if (r.recognize()=="6")
+                    Numis.setIcon(new ImageIcon("gui/number/6.png"));
+                else if (r.recognize()=="7")
+                    Numis.setIcon(new ImageIcon("gui/number/7.png"));
+                else if (r.recognize()=="8")
+                    Numis.setIcon(new ImageIcon("gui/number/8.png"));
+                else if (r.recognize()=="9")
+                    Numis.setIcon(new ImageIcon("gui/number/9.png"));
                 
+            }        
             if (e.getSource() == btnRecognize){
                 dispose();
                 //System.out.println(selectNumber.getSelectedIndex());
@@ -76,21 +98,22 @@ class DrawWin extends JFrame {
                     btnChecknumber.setVisible(false);
                     btnRecognize.setVisible(true);
                     training.setIcon(new ImageIcon("gui/button/clickTraining.png"));
-                    background.setIcon(new ImageIcon("gui/BG/back2.jpg"));
+                    background.setIcon(new ImageIcon("gui/BG/back2.png"));
+                    Numis.setVisible(false);
                     selectNumber.setVisible(true);                
                 } 
                 else {
                     btnRecognize.setVisible(false);
                     btnChecknumber.setVisible(true);
                     training.setIcon(new ImageIcon("gui/button/Training.png"));
-                    background.setIcon(new ImageIcon("gui/BG/back1.jpg"));
+                    background.setIcon(new ImageIcon("gui/BG/back1.png"));
                     selectNumber.setVisible(false);
                 }
             }
             if (e.getSource() == bgm){
                 if (bgm.isSelected()) { 
                     bgm.setIcon(new ImageIcon("gui/button/bgmon.png"));
-
+                    
                 } 
                 else {
                     bgm.setIcon(new ImageIcon("gui/button/bgmoff.png"));
@@ -129,13 +152,17 @@ class DrawWin extends JFrame {
 
         background = new JLabel();
             background.setSize(800,550);
-            background.setIcon(new ImageIcon("gui/BG/back1.jpg"));
+            background.setIcon(new ImageIcon("gui/BG/back1.png"));
             background.setVisible(true);
         
 //        training = new JToggleButton("Training");
 //            training.setText("Guess");
 //            training.setBounds(10,300,280, 30);
 //            training.setFocusPainted(false);
+
+        Numis = new JLabel();
+        Numis.setBounds(580,465,60,30);
+        Numis.setVisible(false);
         
 //<<<<<<< HEAD
 //        btnRecognize = new JButton("Check number");
@@ -146,7 +173,7 @@ class DrawWin extends JFrame {
 //            clearBtn.setFocusPainted(false);
 //=======
         selectNumber = new JComboBox();
-        selectNumber.setBounds(560,470,80,30);
+        selectNumber.setBounds(535,470,80,30);
         selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
         selectNumber.setVisible(false);
         
@@ -204,6 +231,7 @@ class DrawWin extends JFrame {
         });        
 //>>>>>>> JJ
         
+        
         clearBtn.addActionListener(actionListener);
         btnRecognize.addActionListener(actionListener);
         btnChecknumber.addActionListener(actionListener);
@@ -215,6 +243,7 @@ class DrawWin extends JFrame {
         getContentPane().add(drawPanel);
         getContentPane().add(clearBtn);
         getContentPane().add(btnRecognize);
+        getContentPane().add(Numis);
         getContentPane().add(selectNumber);
 //<<<<<<< HEAD
 //        getContentPane().add(textNumber);
@@ -306,3 +335,5 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
         
     }
 }
+
+
