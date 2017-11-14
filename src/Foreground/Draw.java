@@ -46,30 +46,6 @@ class DrawWin extends JFrame {
             if (e.getSource() == clearBtn)
                 drawPanel.clear();
             
-            if (e.getSource() == btnChecknumber){
-                Numis.setVisible(true);
-                if (r.recognize()=="0")
-                    Numis.setIcon(new ImageIcon("gui/number/0.png"));
-                else if (r.recognize()=="1")
-                    Numis.setIcon(new ImageIcon("gui/number/1.png"));
-                else if (r.recognize()=="2")
-                    Numis.setIcon(new ImageIcon("gui/number/2.png"));
-                else if (r.recognize()=="3")
-                    Numis.setIcon(new ImageIcon("gui/number/3.png"));
-                else if (r.recognize()=="4")
-                    Numis.setIcon(new ImageIcon("gui/number/4.png"));
-                else if (r.recognize()=="5")
-                    Numis.setIcon(new ImageIcon("gui/number/5.png"));
-                else if (r.recognize()=="6")
-                    Numis.setIcon(new ImageIcon("gui/number/6.png"));
-                else if (r.recognize()=="7")
-                    Numis.setIcon(new ImageIcon("gui/number/7.png"));
-                else if (r.recognize()=="8")
-                    Numis.setIcon(new ImageIcon("gui/number/8.png"));
-                else if (r.recognize()=="9")
-                    Numis.setIcon(new ImageIcon("gui/number/9.png"));
-                
-            }        
             if (e.getSource() == btnRecognize){
                 dispose();
                 //System.out.println(selectNumber.getSelectedIndex());
@@ -88,7 +64,28 @@ class DrawWin extends JFrame {
                     //i.repaint();
                     //repaint();
                     //getContentPane().add(i);
-                    outputNumber.setText(r.recognize());
+//                    outputNumber.setText(r.recognize());
+                    Numis.setVisible(true);
+                if (r.recognize().equals("0"))
+                    Numis.setIcon(new ImageIcon("gui/number/0.png"));
+                else if (r.recognize().equals("1"))
+                    Numis.setIcon(new ImageIcon("gui/number/1.png"));
+                else if (r.recognize().equals("2"))
+                    Numis.setIcon(new ImageIcon("gui/number/2.png"));
+                else if (r.recognize().equals("3"))
+                    Numis.setIcon(new ImageIcon("gui/number/3.png"));
+                else if (r.recognize().equals("4"))
+                    Numis.setIcon(new ImageIcon("gui/number/4.png"));
+                else if (r.recognize().equals("5"))
+                    Numis.setIcon(new ImageIcon("gui/number/5.png"));
+                else if (r.recognize().equals("6"))
+                    Numis.setIcon(new ImageIcon("gui/number/6.png"));
+                else if (r.recognize().equals("7"))
+                    Numis.setIcon(new ImageIcon("gui/number/7.png"));
+                else if (r.recognize().equals("8"))
+                    Numis.setIcon(new ImageIcon("gui/number/8.png"));
+                else if (r.recognize().equals("9"))
+                    Numis.setIcon(new ImageIcon("gui/number/9.png"));
                 } catch (FileNotFoundException ex) {
                     System.out.println("Not found file");
                 }
