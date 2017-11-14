@@ -18,6 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
+import javax.swing.ImageIcon;
+import javax.swing.AbstractButton;
+import java.io.FileInputStream;
+import java.io.IOException;
+import javax.swing.*;
+import sun.audio.*;
 
 /**
  *
@@ -32,60 +38,73 @@ class DrawWin extends JFrame {
     static JComboBox selectNumber;
     private JLabel textNumber;
     private JLabel outputNumber;
+    private JButton btnChecknumber;
     private JToggleButton training;
+    private JToggleButton bgm;
+    private JLabel background;
     
     ActionListener actionListener = new ActionListener() {        
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn)
                 drawPanel.clear();
+                
             if (e.getSource() == btnRecognize){
-                if (btnRecognize.getText().equals("Recognize")){
-                    dispose();
-                    //System.out.println(selectNumber.getSelectedIndex());
+                dispose();
+                //System.out.println(selectNumber.getSelectedIndex());
+                r.loadImage();
+                r.setVisible(true);
+            }
+            if (e.getSource() == btnChecknumber){
+                    
+                try {
+                    //drawPanel.setVisible(false);
+
+                    //i.setVisible(false);
                     r.loadImage();
-                    r.setVisible(true);
-                }
-                else if (btnRecognize.getText().equals("Check number")){
-                    
-                    try {
-                        //drawPanel.setVisible(false);
-                        
-                        //i.setVisible(false);
-                        r.loadImage();
-                        //image.paint();
-                        //getContentPane().remove(i);
-                        //i.repaint();
-                        //repaint();
-                        //getContentPane().add(i);
-                        outputNumber.setText(r.recognize());
-                    } catch (FileNotFoundException ex) {
-                        System.out.println("Not found file");
-                    }
-                    
+                    //image.paint();
+                    //getContentPane().remove(i);
+                    //i.repaint();
+                    //repaint();
+                    //getContentPane().add(i);
+                    outputNumber.setText(r.recognize());
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Not found file");
                 }
             }
             if (e.getSource() == training){
                 if (training.isSelected()) { 
-                    training.setText("Training");
-                    btnRecognize.setText("Recognize");
-                    textNumber.setText("Number");
+                    btnChecknumber.setVisible(false);
+                    btnRecognize.setVisible(true);
+                    training.setIcon(new ImageIcon("gui/button/clickTraining.png"));
+                    background.setIcon(new ImageIcon("gui/BG/back2.jpg"));
                     selectNumber.setVisible(true);                
                 } 
-                else { 
-                    training.setText("Guess");
-                    btnRecognize.setText("Check number");
+                else {
+                    btnRecognize.setVisible(false);
+                    btnChecknumber.setVisible(true);
+                    training.setIcon(new ImageIcon("gui/button/Training.png"));
+                    background.setIcon(new ImageIcon("gui/BG/back1.jpg"));
                     selectNumber.setVisible(false);
-                    textNumber.setText("Number is");
+                }
+            }
+            if (e.getSource() == bgm){
+                if (bgm.isSelected()) { 
+                    bgm.setIcon(new ImageIcon("gui/button/bgmon.png"));
+
+                } 
+                else {
+                    bgm.setIcon(new ImageIcon("gui/button/bgmoff.png"));
+
                 }
             }
 //            System.out.println(selectNumber.getSelectedIndex());
         }
-
+        
     };    
-    
+
     public DrawWin() {
         setTitle("Test");
-        setSize(new Dimension(600, 410));
+        setSize(new Dimension(800, 570));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -94,45 +113,116 @@ class DrawWin extends JFrame {
         drawPanel = new Draw();
         drawPanel.drawRealtime = new DrawRealtime();
         
-        selectNumber = new JComboBox();
-            selectNumber.setBounds(390,300,60,30);
-            selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
-            selectNumber.setVisible(false);
+//        selectNumber = new JComboBox();
+//            selectNumber.setBounds(390,300,60,30);
+//            selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+//            selectNumber.setVisible(false);
 
-        textNumber = new JLabel();
-            textNumber.setBounds(320, 290, 80, 50);
-            textNumber.setFont(new java.awt.Font("Tahoma", 0, 18));
-            textNumber.setText("Number is");
+//        textNumber = new JLabel();
+//            textNumber.setBounds(320, 290, 80, 50);
+//            textNumber.setFont(new java.awt.Font("Tahoma", 0, 18));
+//            textNumber.setText("Number is");
         outputNumber = new JLabel();
-            outputNumber.setBounds(430, 280, 80, 100);
+            outputNumber.setBounds(600, 430, 80, 100);
             outputNumber.setFont(new java.awt.Font("Verdana", Font.PLAIN, 70));
             outputNumber.setText("");
+
+        background = new JLabel();
+            background.setSize(800,550);
+            background.setIcon(new ImageIcon("gui/BG/back1.jpg"));
+            background.setVisible(true);
         
-        training = new JToggleButton("Training");
-            training.setText("Guess");
-            training.setBounds(10,300,280, 30);
-            training.setFocusPainted(false);
+//        training = new JToggleButton("Training");
+//            training.setText("Guess");
+//            training.setBounds(10,300,280, 30);
+//            training.setFocusPainted(false);
         
-        btnRecognize = new JButton("Check number");
-            btnRecognize.setBounds(10, 340, 135, 30);
-            btnRecognize.setFocusPainted(false);
-        clearBtn = new JButton("Clear");
-            clearBtn.setBounds(155, 340, 135, 30);
-            clearBtn.setFocusPainted(false);
+//<<<<<<< HEAD
+//        btnRecognize = new JButton("Check number");
+//            btnRecognize.setBounds(10, 340, 135, 30);
+//            btnRecognize.setFocusPainted(false);
+//        clearBtn = new JButton("Clear");
+//            clearBtn.setBounds(155, 340, 135, 30);
+//            clearBtn.setFocusPainted(false);
+//=======
+        selectNumber = new JComboBox();
+        selectNumber.setBounds(560,470,80,30);
+        selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+        selectNumber.setVisible(false);
+        
+        training = new JToggleButton();
+        training.setIcon(new ImageIcon("gui/button/Training.png"));
+        training.setBounds(710,38,68, 65);
+        training.setFocusPainted(false);
+        
+        bgm = new JToggleButton();
+        bgm.setIcon(new ImageIcon("gui/button/bgmoff.png"));
+        bgm.setBounds(710,150,68, 65);
+        bgm.setFocusPainted(false);
+        
+        btnChecknumber = new JButton();
+        btnChecknumber.setIcon(new ImageIcon("gui/button/checknumber.png"));
+        btnChecknumber.setHorizontalTextPosition(AbstractButton.CENTER);
+        btnChecknumber.setBounds(20, 437, 190, 90);
+        btnChecknumber.setFocusPainted(false);
+        btnChecknumber.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnChecknumber.setIcon(new ImageIcon("gui/button/clickchecknumber.png"));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnChecknumber.setIcon(new ImageIcon("gui/button/checknumber.png"));
+            }
+        });
+        
+        btnRecognize = new JButton();
+        btnRecognize.setIcon(new ImageIcon("gui/button/recognize.png"));
+        btnRecognize.setHorizontalTextPosition(AbstractButton.CENTER);
+        btnRecognize.setBounds(20, 437, 190, 90);
+        btnRecognize.setFocusPainted(false);
+        btnRecognize.setVisible(false);
+        btnRecognize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRecognize.setIcon(new ImageIcon("gui/button/clickrecognize.png"));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRecognize.setIcon(new ImageIcon("gui/button/recognize.png"));
+            }
+        });
+        
+        clearBtn = new JButton();
+        clearBtn.setIcon(new ImageIcon("gui/button/testbut.png"));
+        clearBtn.setBounds(240, 440, 115, 40);
+        clearBtn.setHorizontalTextPosition(AbstractButton.CENTER);
+        clearBtn.setFocusPainted(false);
+        clearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                clearBtn.setIcon(new ImageIcon("gui/button/clicktestbut.png"));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                clearBtn.setIcon(new ImageIcon("gui/button/testbut.png"));
+            }
+        });        
+//>>>>>>> JJ
         
         clearBtn.addActionListener(actionListener);
         btnRecognize.addActionListener(actionListener);
+        btnChecknumber.addActionListener(actionListener);
         training.addActionListener(actionListener);
         selectNumber.addActionListener(actionListener);
+        bgm.addActionListener(actionListener);
         
+        getContentPane().add(btnChecknumber);        
         getContentPane().add(drawPanel);
         getContentPane().add(clearBtn);
         getContentPane().add(btnRecognize);
         getContentPane().add(selectNumber);
-        getContentPane().add(textNumber);
+//<<<<<<< HEAD
+//        getContentPane().add(textNumber);
         getContentPane().add(outputNumber);
         getContentPane().add(training);
         getContentPane().add(drawPanel.drawRealtime);
+        getContentPane().add(bgm);
+        getContentPane().add(background);
         setVisible(true);
     }
     
@@ -152,7 +242,7 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
     
     public Draw() {
 	setPreferredSize(new Dimension(280, 280));
-	setBounds(10, 10, 280, 280);
+	setBounds(40, 103, 280, 280);
 	setBackground(Color.WHITE);
 	setBorder(BorderFactory.createLineBorder(Color.BLACK));
 	p = false;
@@ -213,5 +303,6 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
     
     public static void main(String [] args){
         DrawWin d = new DrawWin();
+        
     }
 }
