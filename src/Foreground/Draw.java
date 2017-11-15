@@ -114,7 +114,7 @@ class DrawWin extends JFrame {
                 if (bgm.isSelected()) { 
                     bgm.setIcon(new ImageIcon("gui/button/bgmon.png"));
                     try {
-                        InputStream in = new FileInputStream("bgm/Itty_Bitty_8_Bit.wav");
+                        InputStream in = new FileInputStream("bgm/Itty_Bitty_8_Bit2.wav");
                         as = new AudioStream(in);
                         AudioPlayer.player.start(as);
                     } catch (IOException evt) {
