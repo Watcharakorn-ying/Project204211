@@ -39,6 +39,7 @@ public class TrainPanel extends JComponent implements WindowListener{
     private JLabel lblIters;
     private JLabel lblSuccess;
     private JLabel lblMSE;
+    private JLabel lblSave;
     private String hintLimit = "Only number > 0";
     private String hintLearningRate = "Only decimal [0-1]";
     
@@ -171,6 +172,9 @@ public class TrainPanel extends JComponent implements WindowListener{
 	lblMSE = new JLabel("");
             lblMSE.setBounds(520, 410, 100, 20);
             lblMSE.setForeground(Color.BLUE);
+        lblSave = new JLabel("");
+            lblSave.setBounds(380, 450, 150, 20);
+            lblSave.setForeground(Color.GREEN);
         
         txtIterLimit = new JTextField(hintLimit);
             txtIterLimit.setForeground(Color.GRAY);
@@ -200,6 +204,7 @@ public class TrainPanel extends JComponent implements WindowListener{
         add(lblIters);
 	add(lblSuccess);
 	add(lblMSE);
+        add(lblSave);
     }
     
     private class SaveListener implements ActionListener {
@@ -218,6 +223,7 @@ public class TrainPanel extends JComponent implements WindowListener{
                 trainDataFile.write(Shared.getBinary(DrawWin.getSelectNumber()) + "\n");
                 N++;
                 System.out.println("N = " + N);
+                lblSave.setText("Save Success!");
                 //DrawWin.drawPanel.clear();
             } catch (IOException e1) { e1.printStackTrace(); }
         }
@@ -328,6 +334,11 @@ public class TrainPanel extends JComponent implements WindowListener{
     public void windowOpened(WindowEvent e) {}
     public void windowClosing(WindowEvent e) {
         System.out.println("closing");
+        lblError.setText("");
+        lblIters.setText("");
+        lblSuccess.setText("");
+        lblMSE.setText("");
+        lblSave.setText("");
         saveLastData();
 	try { trainDataFile.close(); }
 	catch (IOException e1) { e1.printStackTrace(); }
@@ -335,6 +346,11 @@ public class TrainPanel extends JComponent implements WindowListener{
     }
     public void windowClosed(WindowEvent e) {
         System.out.println("closing");
+        lblError.setText("");
+        lblIters.setText("");
+        lblSuccess.setText("");
+        lblMSE.setText("");
+        lblSave.setText("");
         saveLastData();
 	try { trainDataFile.close(); }
 	catch (IOException e1) { e1.printStackTrace(); }
