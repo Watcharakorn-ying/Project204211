@@ -22,7 +22,6 @@ import javax.swing.ImageIcon;
 import javax.swing.AbstractButton;
 import sun.audio.*;
 import java.io.*;
-import java.util.Scanner;
 
 /**
  *
@@ -114,14 +113,13 @@ class DrawWin extends JFrame {
             if (e.getSource() == bgm){
                 if (bgm.isSelected()) { 
                     bgm.setIcon(new ImageIcon("gui/button/bgmon.png"));
-                    
                     try {
                         InputStream in = new FileInputStream("bgm/Itty_Bitty_8_Bit.wav");
                         as = new AudioStream(in);
                         AudioPlayer.player.start(as);
                     } catch (IOException evt) {
 
-                    }
+                    }   
                 } 
                 else {
                     bgm.setIcon(new ImageIcon("gui/button/bgmoff.png"));
@@ -132,7 +130,7 @@ class DrawWin extends JFrame {
         }
         
     };    
-
+    
     public DrawWin() {
         setTitle("Test");
         setSize(new Dimension(800, 570));
