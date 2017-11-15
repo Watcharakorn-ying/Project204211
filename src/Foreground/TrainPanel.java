@@ -224,7 +224,6 @@ public class TrainPanel extends JComponent implements WindowListener{
                 N++;
                 System.out.println("N = " + N);
                 lblSave.setText("Save Success!");
-                //DrawWin.drawPanel.clear();
             } catch (IOException e1) { e1.printStackTrace(); }
         }
     }

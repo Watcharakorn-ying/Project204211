@@ -20,7 +20,6 @@ public class Recognition extends JFrame {
     private TrainPanel TrainPanel = new TrainPanel();
     
     private JButton btnReset;
-    private JLabel lblDigit;
     private BufferedImage image;
     private int[] rectCoords;
     private boolean[][] bits;

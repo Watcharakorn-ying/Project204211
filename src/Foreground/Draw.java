@@ -3,7 +3,6 @@ package Foreground;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,7 +45,6 @@ class DrawWin extends JFrame {
             
             if (e.getSource() == btnRecognize){
                 dispose();
-                //System.out.println(selectNumber.getSelectedIndex());
                 r.loadImage();
                 r.setVisible(true);
             }
@@ -107,7 +105,6 @@ class DrawWin extends JFrame {
 
                 }
             }
-//            System.out.println(selectNumber.getSelectedIndex());
         }
         
     };    
