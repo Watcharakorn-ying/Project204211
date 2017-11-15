@@ -69,7 +69,7 @@ public class Recognition extends JFrame {
 	int[] intBits = new int[196];
 	for (int i = 0; i < 14; i++)
             for (int j = 0; j < 14; j++)
-		intBits[10*j + i] = (booleanBits[i][j])? 1 : 0;
+		intBits[14*j + i] = (booleanBits[i][j])? 1 : 0;
         int result = nn.resultIndex(intBits);
         System.out.println(result);
         return Integer.toString(result);
