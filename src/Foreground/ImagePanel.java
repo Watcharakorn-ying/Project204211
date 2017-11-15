@@ -22,10 +22,6 @@ public class ImagePanel extends JPanel {
         setPreferredSize(new Dimension(710, 430));
 	setBounds(0, 0, 710, 350);
     }
-    /*public ImagePanel(int x, int y) {
-	setPreferredSize(new Dimension(710, 430));
-	setBounds(x, y, 710, 430);
-    }*/
     public void paint(Graphics g) {
 	// Paint the image
 	BufferedImage image = DrawWin.r.getImage();
@@ -59,8 +55,6 @@ public class ImagePanel extends JPanel {
                     	g.fillRect(380 + 28*i, 50 + 28*j, 28, 28);
                     }
                 }
-                //System.out.println();
             }
-	
     }
 }
