@@ -212,8 +212,8 @@ public class TrainPanel extends JComponent implements WindowListener{
             try {
                 boolean[][] data = DrawWin.drawPanel.getData();
                 data = Image.getBits(Image.getRectangle(data), data);
-                for (int i = 0; i < 10; i++){
-                    for (int j = 0; j < 10; j++){
+                for (int i = 0; i < 14; i++){
+                    for (int j = 0; j < 14; j++){
                         System.out.print(data[j][i]? "1 ": "0 ");
                             trainDataFile.write((data[j][i])? "1 " : "0 ");
                     }
@@ -307,11 +307,11 @@ public class TrainPanel extends JComponent implements WindowListener{
             File trainFile = new File("data/train.txt");
             Scanner in = new Scanner(trainFile);
             FileWriter tmpFileOut = new FileWriter(tmpFile);
-            tmpFileOut.write(N + " 100\n ");
+            tmpFileOut.write(N + " 196\n ");
             in.nextInt(); 
             in.nextInt();
             for (int i = 0; i < N; i++) {
-                for (int j = 0; j < 100; j++)
+                for (int j = 0; j < 196; j++)
                     tmpFileOut.write(in.nextInt() + " ");
                 tmpFileOut.write("\n");
                 for (int j = 0; j < 10; j++)
