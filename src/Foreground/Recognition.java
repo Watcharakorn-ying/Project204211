@@ -64,11 +64,11 @@ public class Recognition extends JFrame {
     }
     
     public String recognize() throws FileNotFoundException{
-        nn = new NeuralNetwork("data/nn_weights.txt", 0.3, 100, 25, 10);
+        nn = new NeuralNetwork("data/nn_weights.txt", 0.3, 196, 25, 10);
         boolean[][] booleanBits = DrawWin.r.bits;
-	int[] intBits = new int[100];
-	for (int i = 0; i < 10; i++)
-            for (int j = 0; j < 10; j++)
+	int[] intBits = new int[196];
+	for (int i = 0; i < 14; i++)
+            for (int j = 0; j < 14; j++)
 		intBits[10*j + i] = (booleanBits[i][j])? 1 : 0;
         int result = nn.resultIndex(intBits);
         System.out.println(result);

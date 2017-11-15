@@ -249,7 +249,7 @@ public class TrainPanel extends JComponent implements WindowListener{
                         lblError.setText("");
                         double lr = Double.parseDouble(txtLearningRate.getText());
                         int hn = Integer.parseInt(txtHLNeurons.getText());
-                        nn = new NeuralNetwork(lr, 100, hn, 10);
+                        nn = new NeuralNetwork(lr, 196, hn, 10);
                         try{
                             nn.loadWeights("data/nn_weights.txt");
                             saveLastData();
