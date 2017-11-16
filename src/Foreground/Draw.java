@@ -3,7 +3,6 @@ package Foreground;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,14 +31,12 @@ class DrawWin extends JFrame {
     static Draw drawPanel;
     
     static Recognition r = new Recognition();
+    static JComboBox selectNumber;
     private JButton clearBtn;
     private JButton btnRecognize;
-    static JComboBox selectNumber;
-    private JLabel textNumber;
-    private JLabel outputNumber;
     private JButton btnChecknumber;
     private JToggleButton training;
-    private JToggleButton bgm;
+    private JToggleButton bgMusic;
     private JLabel background;
     private JLabel Numis;
     static AudioStream as;
@@ -50,50 +47,42 @@ class DrawWin extends JFrame {
                 drawPanel.clear();
             
             if (e.getSource() == btnRecognize){
+                AudioPlayer.player.stop(as);
                 dispose();
-                //System.out.println(selectNumber.getSelectedIndex());
                 r.loadImage();
                 r.setVisible(true);
             }
             if (e.getSource() == btnChecknumber){
                     
                 try {
-                    //drawPanel.setVisible(false);
-
-                    //i.setVisible(false);
                     r.loadImage();
-                    //image.paint();
-                    //getContentPane().remove(i);
-                    //i.repaint();
-                    //repaint();
-                    //getContentPane().add(i);
-//                    outputNumber.setText(r.recognize());
                     Numis.setVisible(true);
-                if (r.recognize().equals("0"))
-                    Numis.setIcon(new ImageIcon("gui/number/0.png"));
-                else if (r.recognize().equals("1"))
-                    Numis.setIcon(new ImageIcon("gui/number/1.png"));
-                else if (r.recognize().equals("2"))
-                    Numis.setIcon(new ImageIcon("gui/number/2.png"));
-                else if (r.recognize().equals("3"))
-                    Numis.setIcon(new ImageIcon("gui/number/3.png"));
-                else if (r.recognize().equals("4"))
-                    Numis.setIcon(new ImageIcon("gui/number/4.png"));
-                else if (r.recognize().equals("5"))
-                    Numis.setIcon(new ImageIcon("gui/number/5.png"));
-                else if (r.recognize().equals("6"))
-                    Numis.setIcon(new ImageIcon("gui/number/6.png"));
-                else if (r.recognize().equals("7"))
-                    Numis.setIcon(new ImageIcon("gui/number/7.png"));
-                else if (r.recognize().equals("8"))
-                    Numis.setIcon(new ImageIcon("gui/number/8.png"));
-                else if (r.recognize().equals("9"))
-                    Numis.setIcon(new ImageIcon("gui/number/9.png"));
+                    if (r.recognize().equals("0"))
+                        Numis.setIcon(new ImageIcon("gui/number/0.png"));
+                    else if (r.recognize().equals("1"))
+                        Numis.setIcon(new ImageIcon("gui/number/1.png"));
+                    else if (r.recognize().equals("2"))
+                        Numis.setIcon(new ImageIcon("gui/number/2.png"));
+                    else if (r.recognize().equals("3"))
+                        Numis.setIcon(new ImageIcon("gui/number/3.png"));
+                    else if (r.recognize().equals("4"))
+                        Numis.setIcon(new ImageIcon("gui/number/4.png"));
+                    else if (r.recognize().equals("5"))
+                        Numis.setIcon(new ImageIcon("gui/number/5.png"));
+                    else if (r.recognize().equals("6"))
+                        Numis.setIcon(new ImageIcon("gui/number/6.png"));
+                    else if (r.recognize().equals("7"))
+                        Numis.setIcon(new ImageIcon("gui/number/7.png"));
+                    else if (r.recognize().equals("8"))
+                        Numis.setIcon(new ImageIcon("gui/number/8.png"));
+                    else if (r.recognize().equals("9"))
+                        Numis.setIcon(new ImageIcon("gui/number/9.png"));
                 } catch (FileNotFoundException ex) {
                     System.out.println("Not found file");
                 }
             }
             if (e.getSource() == training){
+                drawPanel.clear();
                 if (training.isSelected()) { 
                     btnChecknumber.setVisible(false);
                     btnRecognize.setVisible(true);
@@ -110,23 +99,20 @@ class DrawWin extends JFrame {
                     selectNumber.setVisible(false);
                 }
             }
-            if (e.getSource() == bgm){
-                if (bgm.isSelected()) { 
-                    bgm.setIcon(new ImageIcon("gui/button/bgmon.png"));
+            if (e.getSource() == bgMusic){
+                if (bgMusic.isSelected()) { 
+                    bgMusic.setIcon(new ImageIcon("gui/button/bgmon.png"));
                     try {
                         InputStream in = new FileInputStream("bgm/Itty_Bitty_8_Bit2.wav");
                         as = new AudioStream(in);
                         AudioPlayer.player.start(as);
-                    } catch (IOException evt) {
-
-                    }   
+                    } catch (IOException evt) {}
                 } 
                 else {
-                    bgm.setIcon(new ImageIcon("gui/button/bgmoff.png"));
+                    bgMusic.setIcon(new ImageIcon("gui/button/bgmoff.png"));
                     AudioPlayer.player.stop(as);
                 }
             }
-//            System.out.println(selectNumber.getSelectedIndex());
         }
         
     };    
@@ -142,127 +128,91 @@ class DrawWin extends JFrame {
         drawPanel = new Draw();
         drawPanel.drawRealtime = new DrawRealtime();
         
-//        selectNumber = new JComboBox();
-//            selectNumber.setBounds(390,300,60,30);
-//            selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
-//            selectNumber.setVisible(false);
-
-//        textNumber = new JLabel();
-//            textNumber.setBounds(320, 290, 80, 50);
-//            textNumber.setFont(new java.awt.Font("Tahoma", 0, 18));
-//            textNumber.setText("Number is");
-        outputNumber = new JLabel();
-            outputNumber.setBounds(600, 430, 80, 100);
-            outputNumber.setFont(new java.awt.Font("Verdana", Font.PLAIN, 70));
-            outputNumber.setText("");
-
+        selectNumber = new JComboBox();
+            selectNumber.setBounds(535,470,80,30);
+            selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+            selectNumber.setVisible(false);
+        
         background = new JLabel();
             background.setSize(800,550);
             background.setIcon(new ImageIcon("gui/BG/back1.png"));
             background.setVisible(true);
-        
-//        training = new JToggleButton("Training");
-//            training.setText("Guess");
-//            training.setBounds(10,300,280, 30);
-//            training.setFocusPainted(false);
-
         Numis = new JLabel();
-        Numis.setBounds(580,465,60,30);
-        Numis.setVisible(false);
-        
-//<<<<<<< HEAD
-//        btnRecognize = new JButton("Check number");
-//            btnRecognize.setBounds(10, 340, 135, 30);
-//            btnRecognize.setFocusPainted(false);
-//        clearBtn = new JButton("Clear");
-//            clearBtn.setBounds(155, 340, 135, 30);
-//            clearBtn.setFocusPainted(false);
-//=======
-        selectNumber = new JComboBox();
-        selectNumber.setBounds(535,470,80,30);
-        selectNumber.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
-        selectNumber.setVisible(false);
-        
+            Numis.setBounds(580,465,60,30);
+            Numis.setVisible(false);
+            
         training = new JToggleButton();
-        training.setIcon(new ImageIcon("gui/button/Training.png"));
-        training.setBounds(710,38,68, 65);
-        training.setFocusPainted(false);
-        
-        bgm = new JToggleButton();
-        bgm.setIcon(new ImageIcon("gui/button/bgmoff.png"));
-        bgm.setBounds(710,150,68, 65);
-        bgm.setFocusPainted(false);
+            training.setIcon(new ImageIcon("gui/button/Training.png"));
+            training.setBounds(710,38,68, 65);
+            training.setFocusPainted(false);
+        bgMusic = new JToggleButton();
+            bgMusic.setIcon(new ImageIcon("gui/button/bgmoff.png"));
+            bgMusic.setBounds(710,150,68, 65);
+            bgMusic.setFocusPainted(false);
         
         btnChecknumber = new JButton();
-        btnChecknumber.setIcon(new ImageIcon("gui/button/checknumber.png"));
-        btnChecknumber.setHorizontalTextPosition(AbstractButton.CENTER);
-        btnChecknumber.setBounds(20, 437, 190, 90);
-        btnChecknumber.setFocusPainted(false);
-        btnChecknumber.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnChecknumber.setIcon(new ImageIcon("gui/button/clickchecknumber.png"));
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnChecknumber.setIcon(new ImageIcon("gui/button/checknumber.png"));
-            }
-        });
-        
+            btnChecknumber.setIcon(new ImageIcon("gui/button/checknumber.png"));
+            btnChecknumber.setHorizontalTextPosition(AbstractButton.CENTER);
+            btnChecknumber.setBounds(20, 437, 190, 90);
+            btnChecknumber.setFocusPainted(false);
+            btnChecknumber.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    btnChecknumber.setIcon(new ImageIcon("gui/button/clickchecknumber.png"));
+                }
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    btnChecknumber.setIcon(new ImageIcon("gui/button/checknumber.png"));
+                }
+            });
         btnRecognize = new JButton();
-        btnRecognize.setIcon(new ImageIcon("gui/button/recognize.png"));
-        btnRecognize.setHorizontalTextPosition(AbstractButton.CENTER);
-        btnRecognize.setBounds(20, 437, 190, 90);
-        btnRecognize.setFocusPainted(false);
-        btnRecognize.setVisible(false);
-        btnRecognize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnRecognize.setIcon(new ImageIcon("gui/button/clickrecognize.png"));
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnRecognize.setIcon(new ImageIcon("gui/button/recognize.png"));
-            }
-        });
-        
+            btnRecognize.setIcon(new ImageIcon("gui/button/recognize.png"));
+            btnRecognize.setHorizontalTextPosition(AbstractButton.CENTER);
+            btnRecognize.setBounds(20, 437, 190, 90);
+            btnRecognize.setFocusPainted(false);
+            btnRecognize.setVisible(false);
+            btnRecognize.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    btnRecognize.setIcon(new ImageIcon("gui/button/clickrecognize.png"));
+                }
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    btnRecognize.setIcon(new ImageIcon("gui/button/recognize.png"));
+                }
+            });
+            
         clearBtn = new JButton();
-        clearBtn.setIcon(new ImageIcon("gui/button/testbut.png"));
-        clearBtn.setBounds(240, 440, 115, 40);
-        clearBtn.setHorizontalTextPosition(AbstractButton.CENTER);
-        clearBtn.setFocusPainted(false);
-        clearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                clearBtn.setIcon(new ImageIcon("gui/button/clicktestbut.png"));
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                clearBtn.setIcon(new ImageIcon("gui/button/testbut.png"));
-            }
-        });        
-//>>>>>>> JJ
+            clearBtn.setIcon(new ImageIcon("gui/button/testbut.png"));
+            clearBtn.setBounds(240, 440, 115, 40);
+            clearBtn.setHorizontalTextPosition(AbstractButton.CENTER);
+            clearBtn.setFocusPainted(false);
+            clearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    clearBtn.setIcon(new ImageIcon("gui/button/clicktestbut.png"));
+                }
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    clearBtn.setIcon(new ImageIcon("gui/button/testbut.png"));
+                }
+            });     
         
-        
+        btnChecknumber.addActionListener(actionListener);
         clearBtn.addActionListener(actionListener);
         btnRecognize.addActionListener(actionListener);
-        btnChecknumber.addActionListener(actionListener);
         training.addActionListener(actionListener);
         selectNumber.addActionListener(actionListener);
-        bgm.addActionListener(actionListener);
+        bgMusic.addActionListener(actionListener);
         
-        getContentPane().add(btnChecknumber);        
         getContentPane().add(drawPanel);
+        getContentPane().add(btnChecknumber);
         getContentPane().add(clearBtn);
         getContentPane().add(btnRecognize);
-        getContentPane().add(Numis);
         getContentPane().add(selectNumber);
-//<<<<<<< HEAD
-//        getContentPane().add(textNumber);
-        getContentPane().add(outputNumber);
+        getContentPane().add(Numis);
         getContentPane().add(training);
         getContentPane().add(drawPanel.drawRealtime);
-        getContentPane().add(bgm);
+        getContentPane().add(bgMusic);
         getContentPane().add(background);
         setVisible(true);
     }
     
     public static int getSelectNumber(){
-        //System.out.println(selectNumber.getSelectedItem());
         return selectNumber.getSelectedIndex();
     }
 }
@@ -338,7 +288,6 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
     
     public static void main(String [] args){
         DrawWin d = new DrawWin();
-        
     }
 }
 

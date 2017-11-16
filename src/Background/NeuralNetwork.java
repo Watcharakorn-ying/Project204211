@@ -93,7 +93,7 @@ public class NeuralNetwork {
     
     public void saveWeights(String filename) throws IOException {
             FileWriter f = new FileWriter(new File(filename));
-            f.write(LEARNING_RATE + " " + inputSize + " " + hiddenSize + " " + outputSize + "\n");
+            f.write(LEARNING_RATE + " " + inputSize + " " + hiddenSize + " " + outputSize + " \n");
             for (int i = 0; i < inputSize; i++)
                 for (int j = 0; j < hiddenSize; j++)
                     f.write(String.format("%f\n", weightsItoH[i][j]));

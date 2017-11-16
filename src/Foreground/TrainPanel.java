@@ -39,6 +39,7 @@ public class TrainPanel extends JComponent implements WindowListener{
     private JLabel lblIters;
     private JLabel lblSuccess;
     private JLabel lblMSE;
+    private JLabel lblSave;
     private String hintLimit = "Only number > 0";
     private String hintLearningRate = "Only decimal [0-1]";
     
@@ -171,6 +172,9 @@ public class TrainPanel extends JComponent implements WindowListener{
 	lblMSE = new JLabel("");
             lblMSE.setBounds(520, 410, 100, 20);
             lblMSE.setForeground(Color.BLUE);
+        lblSave = new JLabel("");
+            lblSave.setBounds(380, 450, 150, 20);
+            lblSave.setForeground(Color.GREEN);
         
         txtIterLimit = new JTextField(hintLimit);
             txtIterLimit.setForeground(Color.GRAY);
@@ -200,6 +204,7 @@ public class TrainPanel extends JComponent implements WindowListener{
         add(lblIters);
 	add(lblSuccess);
 	add(lblMSE);
+        add(lblSave);
     }
     
     private class SaveListener implements ActionListener {
@@ -207,8 +212,8 @@ public class TrainPanel extends JComponent implements WindowListener{
             try {
                 boolean[][] data = DrawWin.drawPanel.getData();
                 data = Image.getBits(Image.getRectangle(data), data);
-                for (int i = 0; i < 10; i++){
-                    for (int j = 0; j < 10; j++){
+                for (int i = 0; i < 14; i++){
+                    for (int j = 0; j < 14; j++){
                         System.out.print(data[j][i]? "1 ": "0 ");
                             trainDataFile.write((data[j][i])? "1 " : "0 ");
                     }
@@ -218,7 +223,7 @@ public class TrainPanel extends JComponent implements WindowListener{
                 trainDataFile.write(Shared.getBinary(DrawWin.getSelectNumber()) + "\n");
                 N++;
                 System.out.println("N = " + N);
-                //DrawWin.drawPanel.clear();
+                lblSave.setText("Save Success!");
             } catch (IOException e1) { e1.printStackTrace(); }
         }
     }
@@ -244,7 +249,7 @@ public class TrainPanel extends JComponent implements WindowListener{
                         lblError.setText("");
                         double lr = Double.parseDouble(txtLearningRate.getText());
                         int hn = Integer.parseInt(txtHLNeurons.getText());
-                        nn = new NeuralNetwork(lr, 100, hn, 10);
+                        nn = new NeuralNetwork(lr, 196, hn, 10);
                         try{
                             nn.loadWeights("data/nn_weights.txt");
                             saveLastData();
@@ -302,11 +307,11 @@ public class TrainPanel extends JComponent implements WindowListener{
             File trainFile = new File("data/train.txt");
             Scanner in = new Scanner(trainFile);
             FileWriter tmpFileOut = new FileWriter(tmpFile);
-            tmpFileOut.write(N + " 100\n ");
+            tmpFileOut.write(N + " 196\n ");
             in.nextInt(); 
             in.nextInt();
             for (int i = 0; i < N; i++) {
-                for (int j = 0; j < 100; j++)
+                for (int j = 0; j < 196; j++)
                     tmpFileOut.write(in.nextInt() + " ");
                 tmpFileOut.write("\n");
                 for (int j = 0; j < 10; j++)
@@ -328,6 +333,11 @@ public class TrainPanel extends JComponent implements WindowListener{
     public void windowOpened(WindowEvent e) {}
     public void windowClosing(WindowEvent e) {
         System.out.println("closing");
+        lblError.setText("");
+        lblIters.setText("");
+        lblSuccess.setText("");
+        lblMSE.setText("");
+        lblSave.setText("");
         saveLastData();
 	try { trainDataFile.close(); }
 	catch (IOException e1) { e1.printStackTrace(); }
@@ -335,6 +345,11 @@ public class TrainPanel extends JComponent implements WindowListener{
     }
     public void windowClosed(WindowEvent e) {
         System.out.println("closing");
+        lblError.setText("");
+        lblIters.setText("");
+        lblSuccess.setText("");
+        lblMSE.setText("");
+        lblSave.setText("");
         saveLastData();
 	try { trainDataFile.close(); }
 	catch (IOException e1) { e1.printStackTrace(); }
