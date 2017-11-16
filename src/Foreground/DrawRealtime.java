@@ -11,7 +11,7 @@ public class DrawRealtime extends JPanel {
     int oldr1=0,oldr2=0,oldr3=0,oldr4=0;
     public  DrawRealtime(){
         setPreferredSize(new Dimension(710, 430));
-	setBounds(300, 10, 280, 280);
+	setBounds(370, 103, 280, 280);
         setBackground(Color.WHITE);
 	setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }

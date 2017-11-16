@@ -26,6 +26,24 @@ public class NeuralNetwork {
 	defaultInit(learningRate, inputSize, hiddenSize, outputSize);
     }
     
+    public NeuralNetwork(String filename, double defLr, int defInSize, int defHiSize, int defOutSize) throws FileNotFoundException {
+        File file = new File(filename);
+        Scanner input = new Scanner(file);
+        try {
+                this.LEARNING_RATE = input.nextDouble();
+                this.inputSize     = input.nextInt();
+                this.hiddenSize    = input.nextInt();
+                this.outputSize    = input.nextInt();
+        } catch (Exception e) {
+                input.close();
+                defaultInit(defLr, defInSize, defHiSize, defOutSize);
+                return;
+        }
+        init();
+        loadWeights(input, this.LEARNING_RATE, this.inputSize, this.hiddenSize, this.outputSize);
+        input.close();
+    }
+    
     private void init() {
 	this.weightsItoH = new double[this.inputSize][this.hiddenSize];
 	this.weightsHtoO = new double[this.hiddenSize][this.outputSize];
@@ -44,6 +62,45 @@ public class NeuralNetwork {
 	this.outputSize  = outputSize;
 	init();
 	randomizeWeights();
+    }
+    
+    public void loadWeights(String filename) {
+        try {
+            Scanner input = new Scanner(new File(filename));
+            double lr = input.nextDouble();
+            int inSize = input.nextInt();
+            int hiSize = input.nextInt();
+            int outSize = input.nextInt();
+            loadWeights(input, lr, inSize, hiSize, outSize);
+            input.close();
+        } catch (Exception e) {
+            randomizeWeights();
+        }
+    }
+    
+    private void loadWeights(Scanner in, double lr, int inSize, int hiSize, int outSize) {
+        if (lr != LEARNING_RATE || inputSize != inSize || hiSize != hiddenSize || outSize != outputSize) {
+            randomizeWeights();
+            return;
+        }
+        for (int i = 0; i < inputSize; i++)
+            for (int j = 0; j < hiddenSize; j++)
+                weightsItoH[i][j] = in.nextDouble();
+        for (int j = 0; j < hiddenSize; j++)
+            for (int k = 0; k < outputSize; k++)
+                weightsHtoO[j][k] = in.nextDouble();
+    }
+    
+    public void saveWeights(String filename) throws IOException {
+            FileWriter f = new FileWriter(new File(filename));
+            f.write(LEARNING_RATE + " " + inputSize + " " + hiddenSize + " " + outputSize + " \n");
+            for (int i = 0; i < inputSize; i++)
+                for (int j = 0; j < hiddenSize; j++)
+                    f.write(String.format("%f\n", weightsItoH[i][j]));
+            for (int j = 0; j < hiddenSize; j++)
+                for (int k = 0; k < outputSize; k++)
+                    f.write(String.format("%f\n", weightsHtoO[j][k]));
+            f.close();
     }
     
     public void randomizeWeights() {
@@ -171,6 +228,10 @@ public class NeuralNetwork {
 		// ERROR = 0.5 * sum(norm(expected - output)**2)
 	}
 	return r;
+    }
+    
+    public int iters() {
+	return iters;
     }
     
     public static void main(String[] args) {

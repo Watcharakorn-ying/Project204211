@@ -34,17 +34,17 @@ public class Image {
     }
     
     public static boolean[][] getBits(int[] rectCoords, boolean[][] data) {
-	boolean bits[][] = new boolean[10][10];
+	boolean bits[][] = new boolean[14][14];
 	int w = rectCoords[2] - rectCoords[0];
 	int h = rectCoords[3] - rectCoords[1];
-	int x = -1, y = -1, dx = w/10, dy = h/10;
+	int x = -1, y = -1, dx = w/14, dy = h/14;
 	if (dx == 0) dx = 1;
 	if (dy == 0) dy = 1;
 	for (int i = rectCoords[0]; i <= rectCoords[2]; i++) {
-            if (x != 9 && (i - rectCoords[0]) % dx == 0) x++;
+            if (x != 13 && (i - rectCoords[0]) % dx == 0) x++;
             y = -1;
             for (int j = rectCoords[1]; j <= rectCoords[3]; j++) {
-            	if (y != 9 && (j - rectCoords[1]) % dy == 0) y++;
+            	if (y != 13 && (j - rectCoords[1]) % dy == 0) y++;
                 if (bits[x][y]) continue;
 		bits[x][y] = data[i][j] || bits[x][y];
             }
