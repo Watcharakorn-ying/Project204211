@@ -47,6 +47,7 @@ class DrawWin extends JFrame {
                 drawPanel.clear();
             
             if (e.getSource() == btnRecognize){
+                AudioPlayer.player.stop(as);
                 dispose();
                 r.loadImage();
                 r.setVisible(true);
