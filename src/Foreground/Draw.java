@@ -19,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 import javax.swing.ImageIcon;
 import javax.swing.AbstractButton;
+import sun.audio.*;
+import java.io.*;
 
 /**
  *
@@ -37,7 +39,8 @@ class DrawWin extends JFrame {
     private JToggleButton bgMusic;
     private JLabel background;
     private JLabel Numis;
-
+    static AudioStream as;
+    
     ActionListener actionListener = new ActionListener() {        
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn)
@@ -98,17 +101,21 @@ class DrawWin extends JFrame {
             if (e.getSource() == bgMusic){
                 if (bgMusic.isSelected()) { 
                     bgMusic.setIcon(new ImageIcon("gui/button/bgmon.png"));
-                    
+                    try {
+                        InputStream in = new FileInputStream("bgm/Itty_Bitty_8_Bit2.wav");
+                        as = new AudioStream(in);
+                        AudioPlayer.player.start(as);
+                    } catch (IOException evt) {}
                 } 
                 else {
                     bgMusic.setIcon(new ImageIcon("gui/button/bgmoff.png"));
-
+                    AudioPlayer.player.stop(as);
                 }
             }
         }
         
     };    
-
+    
     public DrawWin() {
         setTitle("Test");
         setSize(new Dimension(800, 570));
