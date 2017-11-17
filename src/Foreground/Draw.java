@@ -46,31 +46,27 @@ class DrawWin extends JFrame {
             }
             if (e.getSource() == btnChecknumber){
                 Main.recognition.loadImage();
-                try {
-                    Numis.setVisible(true);
-                    if (Main.recognition.recognize().equals("0"))
-                        Numis.setIcon(new ImageIcon("gui/number/0.png"));
-                    else if (Main.recognition.recognize().equals("1"))
-                        Numis.setIcon(new ImageIcon("gui/number/1.png"));
-                    else if (Main.recognition.recognize().equals("2"))
-                        Numis.setIcon(new ImageIcon("gui/number/2.png"));
-                    else if (Main.recognition.recognize().equals("3"))
-                        Numis.setIcon(new ImageIcon("gui/number/3.png"));
-                    else if (Main.recognition.recognize().equals("4"))
-                        Numis.setIcon(new ImageIcon("gui/number/4.png"));
-                    else if (Main.recognition.recognize().equals("5"))
-                        Numis.setIcon(new ImageIcon("gui/number/5.png"));
-                    else if (Main.recognition.recognize().equals("6"))
-                        Numis.setIcon(new ImageIcon("gui/number/6.png"));
-                    else if (Main.recognition.recognize().equals("7"))
-                        Numis.setIcon(new ImageIcon("gui/number/7.png"));
-                    else if (Main.recognition.recognize().equals("8"))
-                        Numis.setIcon(new ImageIcon("gui/number/8.png"));
-                    else if (Main.recognition.recognize().equals("9"))
-                        Numis.setIcon(new ImageIcon("gui/number/9.png"));
-                } catch (FileNotFoundException ex) {
-                    System.out.println("Not found file");
-                }
+                Numis.setVisible(true);
+                if (Main.recognition.recognize().equals("0"))
+                    Numis.setIcon(new ImageIcon("gui/number/0.png"));
+                else if (Main.recognition.recognize().equals("1"))
+                    Numis.setIcon(new ImageIcon("gui/number/1.png"));
+                else if (Main.recognition.recognize().equals("2"))
+                    Numis.setIcon(new ImageIcon("gui/number/2.png"));
+                else if (Main.recognition.recognize().equals("3"))
+                    Numis.setIcon(new ImageIcon("gui/number/3.png"));
+                else if (Main.recognition.recognize().equals("4"))
+                    Numis.setIcon(new ImageIcon("gui/number/4.png"));
+                else if (Main.recognition.recognize().equals("5"))
+                    Numis.setIcon(new ImageIcon("gui/number/5.png"));
+                else if (Main.recognition.recognize().equals("6"))
+                    Numis.setIcon(new ImageIcon("gui/number/6.png"));
+                else if (Main.recognition.recognize().equals("7"))
+                    Numis.setIcon(new ImageIcon("gui/number/7.png"));
+                else if (Main.recognition.recognize().equals("8"))
+                    Numis.setIcon(new ImageIcon("gui/number/8.png"));
+                else if (Main.recognition.recognize().equals("9"))
+                    Numis.setIcon(new ImageIcon("gui/number/9.png"));
             }
             if (e.getSource() == training){
                 Main.drawPanel.clear();
