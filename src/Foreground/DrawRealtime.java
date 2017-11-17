@@ -9,15 +9,17 @@ import javax.swing.JPanel;
 
 public class DrawRealtime extends JPanel {
     int oldr1=0,oldr2=0,oldr3=0,oldr4=0;
+    
     public  DrawRealtime(){
         setPreferredSize(new Dimension(710, 430));
 	setBounds(370, 103, 280, 280);
         setBackground(Color.WHITE);
 	setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
+    
     public void paint(int px, int py, int x, int y) {
         Graphics g = getGraphics();
-        int[] rCoords = DrawWin.r.getRectangleCoords();
+        int[] rCoords = Main.recognition.getRectangleCoords();
         g.drawLine(px,py,x,y);//draw realtime
         if (rCoords != null) {
             g.setColor(Color.WHITE);

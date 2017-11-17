@@ -5,13 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
 import javax.swing.JPanel;
 
-/**
- *
- * @author HawksSalatan
- */
 public class ImagePanel extends JPanel {
     public ImagePanel(){
         setPreferredSize(new Dimension(710, 430));
@@ -19,10 +14,10 @@ public class ImagePanel extends JPanel {
     }
     public void paint(Graphics g) {
 	// Paint the image
-	BufferedImage image = DrawWin.r.getImage();
-	int[] rCoords = DrawWin.r.getRectangleCoords();
+	BufferedImage image = Main.recognition.getImage();
+	int[] rCoords = Main.recognition.getRectangleCoords();
 	for (int i = 0; i < rCoords.length; i++) rCoords[i] += 50;
-	boolean[][] bits = DrawWin.r.getImageBits();
+	boolean[][] bits = Main.recognition.getImageBits();
 	if (image != null)
             g.drawImage(image, 50, 50, this);
 	

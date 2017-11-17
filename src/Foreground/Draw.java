@@ -22,16 +22,8 @@ import javax.swing.AbstractButton;
 import sun.audio.*;
 import java.io.*;
 
-/**
- *
- * @author HawksSalatan
- */
-
 class DrawWin extends JFrame {
-    static Draw drawPanel;
-    
-    static Recognition r = new Recognition();
-    static JComboBox selectNumber;
+    private JComboBox selectNumber;    
     private JButton clearBtn;
     private JButton btnRecognize;
     private JButton btnChecknumber;
@@ -39,50 +31,49 @@ class DrawWin extends JFrame {
     private JToggleButton bgMusic;
     private JLabel background;
     private JLabel Numis;
-    static AudioStream as;
+    private AudioStream as;
     
     ActionListener actionListener = new ActionListener() {        
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn)
-                drawPanel.clear();
+                Main.drawPanel.clear();
             
             if (e.getSource() == btnRecognize){
                 AudioPlayer.player.stop(as);
                 dispose();
-                r.loadImage();
-                r.setVisible(true);
+                Main.recognition.loadImage();
+                Main.recognition.setVisible(true);
             }
             if (e.getSource() == btnChecknumber){
-                    
+                Main.recognition.loadImage();
                 try {
-                    r.loadImage();
                     Numis.setVisible(true);
-                    if (r.recognize().equals("0"))
+                    if (Main.recognition.recognize().equals("0"))
                         Numis.setIcon(new ImageIcon("gui/number/0.png"));
-                    else if (r.recognize().equals("1"))
+                    else if (Main.recognition.recognize().equals("1"))
                         Numis.setIcon(new ImageIcon("gui/number/1.png"));
-                    else if (r.recognize().equals("2"))
+                    else if (Main.recognition.recognize().equals("2"))
                         Numis.setIcon(new ImageIcon("gui/number/2.png"));
-                    else if (r.recognize().equals("3"))
+                    else if (Main.recognition.recognize().equals("3"))
                         Numis.setIcon(new ImageIcon("gui/number/3.png"));
-                    else if (r.recognize().equals("4"))
+                    else if (Main.recognition.recognize().equals("4"))
                         Numis.setIcon(new ImageIcon("gui/number/4.png"));
-                    else if (r.recognize().equals("5"))
+                    else if (Main.recognition.recognize().equals("5"))
                         Numis.setIcon(new ImageIcon("gui/number/5.png"));
-                    else if (r.recognize().equals("6"))
+                    else if (Main.recognition.recognize().equals("6"))
                         Numis.setIcon(new ImageIcon("gui/number/6.png"));
-                    else if (r.recognize().equals("7"))
+                    else if (Main.recognition.recognize().equals("7"))
                         Numis.setIcon(new ImageIcon("gui/number/7.png"));
-                    else if (r.recognize().equals("8"))
+                    else if (Main.recognition.recognize().equals("8"))
                         Numis.setIcon(new ImageIcon("gui/number/8.png"));
-                    else if (r.recognize().equals("9"))
+                    else if (Main.recognition.recognize().equals("9"))
                         Numis.setIcon(new ImageIcon("gui/number/9.png"));
                 } catch (FileNotFoundException ex) {
                     System.out.println("Not found file");
                 }
             }
             if (e.getSource() == training){
-                drawPanel.clear();
+                Main.drawPanel.clear();
                 if (training.isSelected()) { 
                     btnChecknumber.setVisible(false);
                     btnRecognize.setVisible(true);
@@ -125,8 +116,8 @@ class DrawWin extends JFrame {
         setResizable(false);
         setLayout(null);
         
-        drawPanel = new Draw();
-        drawPanel.drawRealtime = new DrawRealtime();
+        Main.drawPanel = new Draw();
+        Main.drawRealtime = new DrawRealtime();
         
         selectNumber = new JComboBox();
             selectNumber.setBounds(535,470,80,30);
@@ -199,20 +190,20 @@ class DrawWin extends JFrame {
         selectNumber.addActionListener(actionListener);
         bgMusic.addActionListener(actionListener);
         
-        getContentPane().add(drawPanel);
+        getContentPane().add(Main.drawPanel);
         getContentPane().add(btnChecknumber);
         getContentPane().add(clearBtn);
         getContentPane().add(btnRecognize);
         getContentPane().add(selectNumber);
         getContentPane().add(Numis);
         getContentPane().add(training);
-        getContentPane().add(drawPanel.drawRealtime);
+        getContentPane().add(Main.drawRealtime);
         getContentPane().add(bgMusic);
         getContentPane().add(background);
         setVisible(true);
     }
     
-    public static int getSelectNumber(){
+    public int getSelectNumber(){
         return selectNumber.getSelectedIndex();
     }
 }
@@ -222,8 +213,6 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
     private boolean painting;
     private int px, py;
     private boolean[][] data;
-    static DrawRealtime drawRealtime;
-    
     
     public Draw() {
 	setPreferredSize(new Dimension(280, 280));
@@ -243,7 +232,7 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
 	getGraphics().clearRect(0, 0, 280, 280);
 	setBackground(Color.WHITE);
 	setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        drawRealtime.clear();
+        Main.drawRealtime.clear();
     }
     
     public boolean[][] getData(){
@@ -264,9 +253,9 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
             System.out.println("T T " + x + " " + y);
             p = false;
 	} else if (painting) {
-            DrawWin.r.loadImage();
+            Main.recognition.loadImage();
             graphics.drawLine(px,py,x,y);
-            drawRealtime.paint(px, py, x, y);
+            Main.drawRealtime.paint(px, py, x, y);
             System.out.println("T F " + px + " " + py + " " + x + " " + y);
 	}        
 	px = x;
@@ -285,10 +274,6 @@ public class Draw extends JPanel implements MouseMotionListener, MouseListener {
     public void mouseMoved(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
     public void mouseClicked(MouseEvent e) {}
-    
-    public static void main(String [] args){
-        DrawWin d = new DrawWin();
-    }
 }
 
 

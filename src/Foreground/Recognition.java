@@ -3,18 +3,12 @@ package Foreground;
 
 import Background.*;
 
-import java.io.FileNotFoundException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
-/**
- *
- * @author HawksSalatan
- */
 public class Recognition extends JFrame {
     private ImagePanel imagePanel = new ImagePanel();
     private TrainPanel TrainPanel = new TrainPanel();
@@ -23,7 +17,6 @@ public class Recognition extends JFrame {
     private BufferedImage image;
     private int[] rectCoords;
     private boolean[][] bits;
-    private NeuralNetwork nn;
     
     ActionListener actionListener = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -56,21 +49,20 @@ public class Recognition extends JFrame {
     }
     
     public void loadImage() {
-	boolean[][] data = DrawWin.drawPanel.getData();
+	boolean[][] data = Main.drawPanel.getData();
 	image = Image.getImage(data);
 	rectCoords = Image.getRectangle(data);
 	bits = Image.getBits(rectCoords, data);
         System.out.println("pass bits");
     }
     
-    public String recognize() throws FileNotFoundException{
-        nn = new NeuralNetwork("data/nn_weights.txt", 0.3, 196, 25, 10);
-        boolean[][] booleanBits = DrawWin.r.bits;
+    public String recognize(){
+        boolean[][] booleanBits = Main.recognition.bits;
 	int[] intBits = new int[196];
 	for (int i = 0; i < 14; i++)
             for (int j = 0; j < 14; j++)
 		intBits[14*j + i] = (booleanBits[i][j])? 1 : 0;
-        int result = nn.resultIndex(intBits);
+        int result = Main.neuralNet.resultIndex(intBits);
         System.out.println(result);
         return Integer.toString(result);
     }
@@ -85,10 +77,5 @@ public class Recognition extends JFrame {
     
     public BufferedImage getImage() {
 	return image;
-    }
-    
-    public static void main(String[] args){
-        Recognition r = new Recognition();
-        r.setVisible(true);
     }
 }

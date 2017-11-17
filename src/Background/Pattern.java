@@ -7,7 +7,7 @@ import java.util.HashMap;
  *
  * @author HawksSalatan
  */
-public class Shared {
+public class Pattern {
     private static HashMap<Integer, String> binary;
     static {
 		binary = new HashMap<Integer, String>();

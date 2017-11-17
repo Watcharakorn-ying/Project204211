@@ -3,10 +3,6 @@ package Background;
 
 import java.awt.image.BufferedImage;
 
-/**
- *
- * @author HawksSalatan
- */
 public class Image {
     
     public static BufferedImage getImage(boolean[][] data) {

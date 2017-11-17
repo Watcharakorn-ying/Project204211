@@ -25,10 +25,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author HawksSalatan
- */
 public class TrainPanel extends JComponent implements WindowListener{    
     private JButton btnSave;
     private JButton btnTrain;
@@ -210,7 +206,7 @@ public class TrainPanel extends JComponent implements WindowListener{
     private class SaveListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
-                boolean[][] data = DrawWin.drawPanel.getData();
+                boolean[][] data = Main.drawPanel.getData();
                 data = Image.getBits(Image.getRectangle(data), data);
                 for (int i = 0; i < 14; i++){
                     for (int j = 0; j < 14; j++){
@@ -219,8 +215,8 @@ public class TrainPanel extends JComponent implements WindowListener{
                     }
                     System.out.println();
                 }
-                System.out.println("W" + DrawWin.getSelectNumber());
-                trainDataFile.write(Shared.getBinary(DrawWin.getSelectNumber()) + "\n");
+                System.out.println("W" + Main.drawWin.getSelectNumber());
+                trainDataFile.write(Pattern.getBinary(Main.drawWin.getSelectNumber()) + "\n");
                 N++;
                 System.out.println("N = " + N);
                 lblSave.setText("Save Success!");
