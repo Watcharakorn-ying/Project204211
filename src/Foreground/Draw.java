@@ -23,7 +23,7 @@ import sun.audio.*;
 import java.io.*;
 
 class DrawWin extends JFrame {
-    private JComboBox selectNumber;    
+    static JComboBox selectNumber;    
     private JButton clearBtn;
     private JButton btnRecognize;
     private JButton btnChecknumber;
@@ -39,6 +39,7 @@ class DrawWin extends JFrame {
                 Main.drawPanel.clear();
             
             if (e.getSource() == btnRecognize){
+                System.out.println(Main.drawWin.getSelectNumber());
                 AudioPlayer.player.stop(as);
                 dispose();
                 Main.recognition.loadImage();
@@ -199,7 +200,7 @@ class DrawWin extends JFrame {
         setVisible(true);
     }
     
-    public int getSelectNumber(){
+    public static int getSelectNumber(){
         return selectNumber.getSelectedIndex();
     }
 }

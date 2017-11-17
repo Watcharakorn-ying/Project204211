@@ -228,6 +228,7 @@ public class TrainPanel extends JComponent implements WindowListener{
         public void actionPerformed(ActionEvent e) {
             new Thread(){
                 public void run(){
+                    btnSave.setEnabled(false);
                     btnTrain.setEnabled(false);
                     btnTrain.setText("Training");
                     lblIters.setText("");
@@ -258,7 +259,9 @@ public class TrainPanel extends JComponent implements WindowListener{
                             lblMSE.setText(String.format("%f", r[1]));
                         }catch (Exception e1) { e1.printStackTrace(); }
                     }
+                    System.out.println("select N" + Main.drawWin.getSelectNumber());
                     btnTrain.setEnabled(true);
+                    btnSave.setEnabled(true);
                     btnTrain.setText("Train");
                 }
             }.start();            
