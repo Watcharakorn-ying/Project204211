@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public class DrawRealtime extends JPanel {
-    int oldr1=0,oldr2=0,oldr3=0,oldr4=0;
+    private int oldr1=0,oldr2=0,oldr3=0,oldr4=0;
     
     public  DrawRealtime(){
         setPreferredSize(new Dimension(710, 430));
