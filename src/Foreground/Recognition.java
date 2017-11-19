@@ -28,7 +28,7 @@ public class Recognition extends JFrame {
     };
     
     public Recognition(){
-        setTitle("Test Recognition");
+        setTitle("Recognition");
         setSize(710, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
