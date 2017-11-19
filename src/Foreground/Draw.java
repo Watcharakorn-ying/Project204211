@@ -106,7 +106,7 @@ class DrawWin extends JFrame {
     };    
     
     public DrawWin() {
-        setTitle("Test");
+        setTitle("Guess");
         setSize(new Dimension(800, 570));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
